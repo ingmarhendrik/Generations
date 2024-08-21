@@ -18,9 +18,7 @@ function showFirstNameSlide() {
             showLastNameSlide();
         }
         else if (result.dismiss === Swal.DismissReason.cancel) {
-            firstName = '';
-            lastName = '';
-            birthday = '';
+            emptyAllForms();
         }
     });
 }
@@ -46,9 +44,7 @@ function showLastNameSlide() {
             showFirstNameSlide()
         }
         else if (result.dismiss === Swal.DismissReason.cancel) {
-            firstName = '';
-            lastName = '';
-            birthday = '';
+            emptyAllForms();
         }
     });
 }
@@ -62,21 +58,48 @@ function showBirthdaySlide() {
         showCancelButton: true,
         inputValue: birthday,
         showDenyButton: true,
-        confirmButtonText: "Submit",
+        confirmButtonText: "Start the game",
         denyButtonText: "Back"
     }).then((result) => {
         if (result.isConfirmed) {
             birthday = result.value;
+            startGame();
+            addDataToGame();
         }
         else if (result.isDenied) {
             showLastNameSlide()
         }
         else if (result.dismiss === Swal.DismissReason.cancel) {
-            firstName = '';
-            lastName = '';
-            birthday = '';
+            emptyAllForms();
         }
     });
+}
+
+function emptyAllForms() {
+    firstName = '';
+    lastName = '';
+    birthday = '';
+}
+
+function addDataToGame() {
+    document.getElementById('name-text').innerHTML = `Name: <b>${firstName}</b> <b>${lastName}</b>`;
+    document.getElementById('welcoming-name').textContent = `Your name is ${firstName} ${lastName}.`;
+    document.getElementById('welcoming-birthdate').textContent = `Your were born on ${birthday}.`;
+}
+
+function triggerNextYear() {
+    const ageButton = document.getElementById('age-button');
+    let currentAge = parseInt(ageButton.textContent, 10);
+    currentAge++;
+    ageButton.textContent = currentAge;
+}
+
+function startGame() {
+    const toHide = ['welcome-text', 'first-life-buttons'];
+    const toShow = ['divider', 'age-button', 'profile-divider', 'name-text', 'occupation-text', 'box-of-life'];
+
+    toHide.forEach(id => document.getElementById(id).style.display = 'none');
+    toShow.forEach(id => document.getElementById(id).style.display = 'block');
 }
 
 

@@ -8,14 +8,29 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
-    <p id="welcome-text">Welcome to the brand new web-based <br> life simulation game GENS!</p>
-
-    <div id="first-life-buttons">
+    <header>
+        <p id="welcome-text">Welcome to the brand new web-based <br> life simulation game GENS!</p>
+    </header>
+    <section id="first-life-buttons">
         <button id="custom-life" onclick="showFirstNameSlide()">Start a new custom life</button>
         <button id="random-life">Start a new random life</button>
+    </section>
+    
+
+    <button id="age-button" onclick="triggerNextYear()">0</button>
+
+    <div id="name-text">Name: </div>
+    <div id="occupation-text">Occupation: <b>Unemployed</b></div>
+
+    <div id="box-of-life">
+        <div id="welcoming-name"></div>
+        <div id="welcoming-birthdate"></div>
     </div>
 
-    
+
+    <div id="divider"></div>
+    <div id="profile-divider"></div>
+
 
     <script src="script.js"></script>
 </body>
