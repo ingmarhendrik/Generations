@@ -121,3 +121,23 @@ body {
     color: black;
     display: none;
 }
+
+#box-of-content {
+    position: absolute;
+    top: 24%;
+    left: 42%;
+    font-family: Georgia, Times, 'Times New Roman', serif;
+    font-size: 1.2em;
+    color: black;
+    display: none;
+}
+
+#age {
+    position: absolute;
+    top: 23%;
+    left: 42%;
+    font-family: Georgia, Times, 'Times New Roman', serif;
+    font-size: 1.2em;
+    color: black;
+    display: none;
+}
