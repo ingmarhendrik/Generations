@@ -5,17 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>GENS - Life Simulation Game</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
-    <header>
-        <p id="welcome-text">Welcome to the brand new web-based <br> life simulation game GENS!</p>
-    </header>
-    <section id="first-life-buttons">
-        <button id="custom-life" onclick="showFirstNameSlide()">Start a new custom life</button>
-        <button id="random-life">Start a new random life</button>
-    </section>
+    <div id="main-page">
+        <header>
+            <p id="welcome-text">Welcome to the brand new web-based <br> life simulation game GENS!</p>
+        </header>
+        <section id="first-life-buttons">
+            <button id="custom-life" onclick="showGenderSlide()">Start a new custom life</button>
+            <button id="random-life">Start a new random life</button>
+        </section>
+    </div>
+
+    <div id="interactions">
+        <button class="interaction-buttons" onclick="openRelationships()">Relationships</button>
+    </div>
+
+    <div id="relationship-content">
+        <div class="relationships">
+            <div>
+                <img src="images/woman-icon.png" alt="Mother">
+                <div>Mother</div>
+            </div>
+            <div>
+                <img src="images/man-icon.png" alt="Father">
+                <div>Father</div>
+            </div>
+            <div>
+                <img src="path/to/girlfriend-image.jpg" alt="Girlfriend">
+                <div>Girlfriend</div>
+            </div>
+        </div>
+    </div>
+
     
 
     <button id="age-button" onclick="triggerNextYear()">0</button>
@@ -27,6 +54,7 @@
     <div id="box-of-life">
         <br>
         <div id="welcoming-name"></div>
+        <div id="welcoming-gender"></div>
         <div id="welcoming-birthdate"></div>
         <div id="welcoming-parents"></div>
         <div id="welcoming-mother-occupation"></div>

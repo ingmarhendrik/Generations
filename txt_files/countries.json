@@ -1,0 +1,46 @@
+{
+  "USA": {
+      "cities": ["New York", "Los Angeles", "Chicago", "Houston"],
+      "flag": "images/usa.png"
+  },
+  "Canada": {
+      "cities": ["Toronto", "Vancouver", "Montreal", "Calgary"],
+      "flag": "images/canada.png"
+  },
+  "India": {
+      "cities": ["Delhi", "Mumbai", "Bangalore", "Chennai"],
+      "flag": "images/india.png"
+  },
+  "Germany": {
+      "cities": ["Berlin", "Munich", "Frankfurt", "Hamburg"],
+      "flag": "images/germany.png"
+  },
+  "France": {
+      "cities": ["Paris", "Lyon", "Marseille", "Toulouse"],
+      "flag": "images/france.png"
+  },
+  "Australia": {
+      "cities": ["Sydney", "Melbourne", "Brisbane", "Perth"],
+      "flag": "images/australia.png"
+  },
+  "Japan": {
+      "cities": ["Tokyo", "Osaka", "Kyoto", "Nagoya"],
+      "flag": "images/japan.png"
+  },
+  "Brazil": {
+      "cities": ["São Paulo", "Rio de Janeiro", "Brasília", "Salvador"],
+      "flag": "images/brazil.png"
+  },
+  "South Africa": {
+      "cities": ["Johannesburg", "Cape Town", "Durban", "Pretoria"],
+      "flag": "images/south-africa.png"
+  },
+  "United Kingdom": {
+      "cities": ["London", "Manchester", "Birmingham", "Liverpool"],
+      "flag": "images/united-kingdom.png"
+  },
+  "Estonia": {
+      "cities": ["Tallinn", "Tartu", "Pärnu", "Viljandi"],
+      "flag": "images/estonia.png"
+  }
+}
