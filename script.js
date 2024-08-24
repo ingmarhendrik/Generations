@@ -10,6 +10,10 @@ let playerData = {
     currentAge: 0,
     gender: '',
     birthCountry: '',
+    healthScore: 0,
+    money: 0,
+    intelligence: 0,
+    looks: 0
 };
 
 let parentsData = {
@@ -43,6 +47,10 @@ function showGenderSlide() {
         },
         confirmButtonText: "Next",
         preConfirm: () => {
+            if (!playerData.gender) {
+                Swal.showValidationMessage('Please select your gender.');
+                return false;
+            }
             return playerData.gender;
         },
         didOpen: () => {
@@ -90,6 +98,15 @@ function showFirstNameSlide() {
         inputPlaceholder: 'Enter your first name',
         showCancelButton: true,
         showDenyButton: true,
+        preConfirm: () => {
+            const firstName = Swal.getInput().value.trim();
+            if (!firstName) {
+                Swal.showValidationMessage('Please enter your first name.');
+                return false;
+            }
+            playerData.firstName = firstName;
+            return firstName;
+        },
         customClass: {
             cancelButton: 'swal2-cancel-main',
             confirmButton: 'swal2-next-main',
@@ -119,6 +136,15 @@ function showLastNameSlide() {
         title: "What's your last name?",
         inputPlaceholder: 'Enter your last name',
         showCancelButton: true,
+        preConfirm: () => {
+            const lastName = Swal.getInput().value.trim();
+            if (!lastName) {
+                Swal.showValidationMessage('Please enter your last name.');
+                return false;
+            }
+            playerData.lastName = lastName;
+            return lastName;
+        },
         customClass: {
             cancelButton: 'swal2-cancel-main',
             confirmButton: 'swal2-next-main',
@@ -211,6 +237,10 @@ async function showCountrySlide() {
         denyButtonText: "Back",
         preConfirm: () => {
             const selectedCountry = $('#countryDropdown').val();
+            if (!selectedCountry) {
+                Swal.showValidationMessage('Please select your nationality.');
+                return false;
+            }
             playerData.birthCountry = selectedCountry;
             return selectedCountry;
         }
@@ -259,6 +289,10 @@ async function showCitySelection(selectedCountry) {
         denyButtonText: "Back",
         preConfirm: () => {
             const selectedCity = document.getElementById('cityDropdown').value;
+            if (!selectedCity) {
+                Swal.showValidationMessage('Please select your city.');
+                return false;
+            }
             playerData.birthCity = selectedCity;
             return selectedCity;
         }
@@ -290,22 +324,203 @@ function showBirthdaySlide() {
         },
         showDenyButton: true,
         confirmButtonText: "Next",
+        preConfirm: () => {
+            const birthdate = Swal.getInput().value;
+            if (!birthdate) {
+                Swal.showValidationMessage('Please select your birthdate.');
+                return false;
+            }
+            playerData.birthday = birthdate;
+            return birthdate;
+        },
+        denyButtonText: "Back",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            showMoneySlide();
+        } else if (result.isDenied) {
+            showCitySelection();
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            emptyAllForms();
+        }
+    });
+};
+
+function showMoneySlide() {
+    Swal.fire({
+        width: 1000,
+        padding: "7em",
+        title: "Choose your starting amount of money",
+        input: "range",
+        inputAttributes: {
+          min: "0",
+          max: "100000",
+          step: "100"
+        },
+        inputValue: playerData.money,
+        showCancelButton: true,
+        preConfirm: () => {
+            const money = Swal.getInput().value;
+            if (money === null || money === '') {
+                Swal.showValidationMessage('Please select starting amount of money.');
+                return false;
+            }
+            playerData.money = parseInt(money, 10);
+            return money;
+        },
+        showDenyButton: true,
+        customClass: {
+            cancelButton: 'swal2-cancel-main',
+            confirmButton: 'swal2-next-main',
+            denyButton: 'swal2-goback-main'
+        },
+        showDenyButton: true,
+        confirmButtonText: "Next",
+        denyButtonText: "Back",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            playerData.money = result.value;
+            showIntelligenceSlide();
+        } else if (result.isDenied) {
+            showBirthdaySlide();
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            emptyAllForms();
+        }
+    });
+    };
+
+
+function showIntelligenceSlide() {
+    Swal.fire({
+        width: 1000,
+        padding: "7em",
+        title: "Choose your intelligence level",
+        input: "range",
+        inputAttributes: {
+            min: "0",
+            max: "100",
+            step: "1"
+        },
+        inputValue: playerData.intelligence,
+        showCancelButton: true,
+        preConfirm: () => {
+            const intelligence = Swal.getInput().value;
+            if (intelligence === null || intelligence === '') {
+                Swal.showValidationMessage('Please select your intelligence level');
+                return false;
+            }
+            playerData.intelligence = parseInt(intelligence, 10);
+            return intelligence;
+        },
+        showDenyButton: true,
+        customClass: {
+            cancelButton: 'swal2-cancel-main',
+            confirmButton: 'swal2-next-main',
+            denyButton: 'swal2-goback-main'
+        },
+        showDenyButton: true,
+        confirmButtonText: "Next",
+        denyButtonText: "Back",
+    }).then((result) => {
+         if (result.isConfirmed) {
+            playerData.intelligence = result.value;
+            showLooksSlide();
+        } else if (result.isDenied) {
+            showIntelligenceSlide();
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            emptyAllForms();
+        }
+    });
+};
+
+function showLooksSlide() {
+    Swal.fire({
+    width: 1000,
+    padding: "7em",
+    title: "Choose your level of looks",
+    input: "range",
+    inputAttributes: {
+        min: "0",
+        max: "100",
+        step: "1"
+    },
+    inputValue: playerData.looks,
+    showCancelButton: true,
+    preConfirm: () => {
+        const looks = Swal.getInput().value;
+        if (looks === null || looks === '') {
+            Swal.showValidationMessage('Please select the level of looks.');
+            return false;
+        }
+        playerData.looks = parseInt(looks, 10);
+        return looks;
+    },
+    showDenyButton: true,
+    customClass: {
+        cancelButton: 'swal2-cancel-main',
+        confirmButton: 'swal2-next-main',
+        denyButton: 'swal2-goback-main'
+    },
+    showDenyButton: true,
+    confirmButtonText: "Next",
+    denyButtonText: "Back",
+}).then((result) => {
+    if (result.isConfirmed) {
+        playerData.looks = result.value;
+        showHealthSlide();
+    } else if (result.isDenied) {
+        showIntelligenceSlide();
+    } else if (result.dismiss === Swal.DismissReason.cancel) {
+        emptyAllForms();
+    }
+});
+}
+
+function showHealthSlide() {
+    Swal.fire({
+        width: 1000,
+        padding: "7em",
+        title: "Choose your health level",
+        input: "range",
+        inputAttributes: {
+          min: "0",
+          max: "100",
+          step: "1"
+        },
+        inputValue: playerData.healthScore,
+        showCancelButton: true,
+        preConfirm: () => {
+            const healthScore = Swal.getInput().value;
+            if (healthScore === null || healthScore === '') {
+                Swal.showValidationMessage('Please select your health level.');
+                return false;
+            }
+            playerData.healthScore = parseInt(healthScore, 10);
+            return healthScore;
+        },
+        showDenyButton: true,
+        customClass: {
+            cancelButton: 'swal2-cancel-main',
+            confirmButton: 'swal2-next-main',
+            denyButton: 'swal2-goback-main'
+        },
+        showDenyButton: true,
+        confirmButtonText: "Start the game",
         denyButtonText: "Back",
     }).then(async(result) => {
         if (result.isConfirmed) {
-            playerData.birthday = result.value;
+            playerData.healthScore = result.value;
             await getParents();
             startGame();
             addDataToGame();
         }
         else if (result.isDenied) {
-            showCountrySlide();
+            showMoneySlide();
         }
         else if (result.dismiss === Swal.DismissReason.cancel) {
             emptyAllForms();
         }
-    });
-}
+      });
+    }
 
 function emptyAllForms() {
     playerData.firstName = '';
@@ -407,7 +622,6 @@ function openRelationships() {
         
     });
 }
-
 
 function startGame() {
     const toHide = ['main-page'];
