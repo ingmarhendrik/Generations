@@ -353,7 +353,7 @@ function showMoneySlide() {
         input: "range",
         inputAttributes: {
           min: "0",
-          max: "100000",
+          max: "1000",
           step: "100"
         },
         inputValue: playerData.money,
@@ -539,6 +539,10 @@ function addDataToGame() {
     document.getElementById('welcoming-parents').innerHTML = `You were born to <b>${parentsData.fatherFirstName} ${playerData.lastName}</b> and <b>${parentsData.motherFirstName} ${playerData.lastName}</b>.`;
     document.getElementById('welcoming-mother-occupation').innerHTML = `Your mother <b>${parentsData.motherFirstName}</b> works as a <b>${parentsData.motherOccupation}</b>.`;
     document.getElementById('welcoming-father-occupation').innerHTML = `Your father <b>${parentsData.fatherFirstName}</b> works as a <b>${parentsData.fatherOccupation}</b>.`;
+    document.getElementById('health-text').innerHTML = `Health: <b>${playerData.healthScore}</b>`;
+    document.getElementById('looks-text').innerHTML = `Looks: <b>${playerData.looks}</b>`;
+    document.getElementById('intelligence-text').innerHTML = `Intelligence: <b>${playerData.intelligence}</b>`;
+    document.getElementById('money-text').innerHTML = `Money: <b>${playerData.money}</b>`;
 }
 
 function triggerNextYear() {
@@ -611,13 +615,12 @@ function openRelationships() {
     let relationshipContent = document.getElementById('relationship-content').innerHTML;
     Swal.fire({
         width: 1000,
-        padding: "14em",
+        padding: "10em",
         showConfirmButton: false,
-        showCancelButton: true,
-        cancelButtonText: "Go back",
+        showCloseButton: true,
         html: relationshipContent,
         customClass: {
-            cancelButton: 'swal2-goback-button'
+            closeButton: 'swal2-close-button'
         }
         
     });
@@ -625,7 +628,20 @@ function openRelationships() {
 
 function startGame() {
     const toHide = ['main-page'];
-    const toShow = ['divider', 'age-button', 'profile-divider', 'name-text', 'occupation-text', 'box-of-life', 'age', 'interactions'];
+    const toShow = [
+        'divider', 
+        'age-button', 
+        'profile-divider', 
+        'name-text', 
+        'occupation-text', 
+        'box-of-life', 
+        'age', 
+        'interactions',
+        'second-row',
+        'name-text',
+        'occupation-text',
+        'third-row'
+    ];
 
     toHide.forEach(id => document.getElementById(id).style.display = 'none');
     toShow.forEach(id => document.getElementById(id).style.display = 'block');
