@@ -16,12 +16,17 @@ let playerData = {
     looks: 0
 };
 
-let parentsData = {
-    fatherFirstName: '',
-    motherFirstName: '',
-    fatherOccupation: '',
-    motherOccupation: ''
-};
+let motherData = {
+    firstName: '',
+    lastName: '',
+    occupation: ''
+}
+
+let fatherData = {
+    firstName: '',
+    lastName: '',
+    occupation: ''
+}
 
 let filePaths = {
     maleFirstNameUrl: 'txt_files/male-first-names.txt',
@@ -338,7 +343,7 @@ function showBirthdaySlide() {
         if (result.isConfirmed) {
             showMoneySlide();
         } else if (result.isDenied) {
-            showCitySelection();
+            showCitySelection(playerData.birthCountry);
         } else if (result.dismiss === Swal.DismissReason.cancel) {
             emptyAllForms();
         }
@@ -373,7 +378,6 @@ function showMoneySlide() {
             confirmButton: 'swal2-next-main',
             denyButton: 'swal2-goback-main'
         },
-        showDenyButton: true,
         confirmButtonText: "Next",
         denyButtonText: "Back",
     }).then((result) => {
@@ -536,13 +540,16 @@ function addDataToGame() {
     document.getElementById('welcoming-name').innerHTML = `Your name is <b>${playerData.firstName} ${playerData.lastName}</b>.`;
     document.getElementById('welcoming-gender').innerHTML = `You are <b>${playerData.gender}</b>.`;
     document.getElementById('welcoming-birthdate').innerHTML = `You were born on <b>${playerData.birthday}</b>.`;
-    document.getElementById('welcoming-parents').innerHTML = `You were born to <b>${parentsData.fatherFirstName} ${playerData.lastName}</b> and <b>${parentsData.motherFirstName} ${playerData.lastName}</b>.`;
-    document.getElementById('welcoming-mother-occupation').innerHTML = `Your mother <b>${parentsData.motherFirstName}</b> works as a <b>${parentsData.motherOccupation}</b>.`;
-    document.getElementById('welcoming-father-occupation').innerHTML = `Your father <b>${parentsData.fatherFirstName}</b> works as a <b>${parentsData.fatherOccupation}</b>.`;
+    document.getElementById('welcoming-parents').innerHTML = `You were born to <b>${fatherData.firstName} ${fatherData.lastName}</b> and <b>${motherData.firstName} ${motherData.lastName}</b>.`;
+    document.getElementById('welcoming-mother-occupation').innerHTML = `Your father <b>${fatherData.firstName}</b> works as a <b>${fatherData.occupation}</b>.`;
+    document.getElementById('welcoming-father-occupation').innerHTML = `Your mother <b>${motherData.firstName}</b> works as a <b>${motherData.occupation}</b>.`;
     document.getElementById('health-text').innerHTML = `Health: <b>${playerData.healthScore}</b>`;
     document.getElementById('looks-text').innerHTML = `Looks: <b>${playerData.looks}</b>`;
     document.getElementById('intelligence-text').innerHTML = `Intelligence: <b>${playerData.intelligence}</b>`;
     document.getElementById('money-text').innerHTML = `Money: <b>${playerData.money}</b>`;
+    document.getElementById('relationship-mother-name').innerHTML = `${motherData.firstName} ${motherData.lastName}`;
+    document.getElementById('relationship-father-name').innerHTML = `${fatherData.firstName} ${fatherData.lastName}`;
+
 }
 
 function triggerNextYear() {
@@ -569,6 +576,9 @@ async function fetchNames(url) {
 
 async function displayNewContent() {
         await triggerRandomEvent();
+        if (Math.random() <= 0.2) {
+            triggerDisease();
+        }
 }
 
 async function triggerRandomEvent() {
@@ -594,17 +604,20 @@ async function getParents() {
     try {
         let maleFirstName = await fetchNames(filePaths.maleFirstNameUrl);
         let femaleFirstName = await fetchNames(filePaths.femaleFirstNameUrl);
-        let occupation = await fetchNames(filePaths.occupationUrl);
+        let occupations = await fetchNames(filePaths.occupationUrl);
 
         let randomFatherIndex = Math.floor(Math.random() * maleFirstName.length);
         let randomMotherIndex = Math.floor(Math.random() * femaleFirstName.length);
-        let randomFatherOccupationIndex = Math.floor(Math.random() * occupation.length)
-        let randomMotherOccupationIndex = Math.floor(Math.random() * occupation.length)
+        let randomFatherOccupationIndex = Math.floor(Math.random() * occupations.length)
+        let randomMotherOccupationIndex = Math.floor(Math.random() * occupations.length)
 
-        parentsData.fatherFirstName = maleFirstName[randomFatherIndex];
-        parentsData.motherFirstName = femaleFirstName[randomMotherIndex];
-        parentsData.fatherOccupation = occupation[randomFatherOccupationIndex];
-        parentsData.motherOccupation = occupation[randomMotherOccupationIndex];
+        fatherData.firstName = maleFirstName[randomFatherIndex];
+        motherData.firstName = femaleFirstName[randomMotherIndex];
+        fatherData.occupation = occupations[randomFatherOccupationIndex];
+        motherData.occupation = occupations[randomMotherOccupationIndex];
+
+        fatherData.lastName = playerData.lastName;
+        motherData.lastName = playerData.lastName;
 
     } catch (error) {
         console.error('Error fetching names:', error);

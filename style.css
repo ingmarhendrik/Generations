@@ -190,23 +190,28 @@ body {
     display: none;
 }
 
-.relationships img {
-    width: 200px;
-    height: auto;
-}
 .relationships {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1em;
-    text-align: center;
+}
+
+.relationships p {
+    color: #000;
+}
+
+.relationship-title {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.relationships img {
+    width: 50%;
 }
 
 .swal2-close-button {
     position: absolute;
     top: 0.5em;
     right: 0.5em;
-
 }
 
 .swal2-cancel-main, .swal2-next-main , .swal2-goback-main {
